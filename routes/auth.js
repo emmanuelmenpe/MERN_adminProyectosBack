@@ -3,8 +3,6 @@ const {check} = require('express-validator');
 const authController = require('../controllers/AuthController');
 const router = express.Router();
 
-
-//crear usuraio
 router.post('/',
     [   //reglas de validaciones
         check('email', 'email no valido').isEmail(),
