@@ -3,6 +3,7 @@ const conectarDB = require('./config/db');
 const usuarioRoute = require('./routes/usuarios');
 const authRoute = require('./routes/auth');
 const proyectoRoute = require('./routes/proyectos');
+const tareaRoute = require('./routes/tareas');
 
 const app = express();
 
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 4000;
 app.use('/api/usuarios', usuarioRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/proyectos', proyectoRoute);
+app.use('/api/tareas', tareaRoute);
 
 //iniciar app
 app.listen(PORT, () => {
