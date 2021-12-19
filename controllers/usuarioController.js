@@ -20,7 +20,7 @@ exports.crearUsuario = async(req, res) => {
         let usuario= await UsuarioModel.findOne({email});
 
         if (usuario) {
-            return res.status(400).json( {msg: 'email ya existe'});
+            return res.status(400).json( {msg: 'el usuario ya existe'});
         }
 
         //crear usuario
@@ -51,6 +51,6 @@ exports.crearUsuario = async(req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(400).send(`hubo un error ${error.message}`);
+        res.status(500).send(`hubo un error ${error.message}`);
     }
 }
