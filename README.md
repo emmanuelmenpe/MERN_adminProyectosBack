@@ -2,7 +2,7 @@
 
 API REST hecha con ExpressJS para implementación del Backend para poder registrarse como usuario y crear proyectos que contendrán tareas y poder aplicarles el CRUD, ésta API es consumida por una APP Frontend que está alojada en esta misma cuenta de gitHub.
 
-## Instalación depandencias
+## Instalación dependencias
 
 Tener instalado [nodeJS](https://nodejs.org/es/), acceder al proyecto desde la terminal y ejecutar **npm install**. <br/>
 Tener instalado [MongoDB](https://docs.mongodb.com/manual/installation/), e iniciar el servidor de mongo.
