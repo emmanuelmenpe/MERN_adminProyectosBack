@@ -4,7 +4,6 @@ const {validationResult} = require('express-validator');
 const JWT = require('jsonwebtoken');
 
 exports.crearUsuario = async(req, res) => {
-    //console.log(req.body);
 
     //obtener errores de validacion si lo hay
     const errores = validationResult(req);

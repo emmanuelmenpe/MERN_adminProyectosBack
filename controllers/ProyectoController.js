@@ -11,7 +11,6 @@ exports.crearProyecto = async(req, res) => {
     }
 
     try {
-        //console.log(req.body);
         const proyecto = new ProyectoModel(req.body);
 
         //guardar propietario via JWT
@@ -28,7 +27,6 @@ exports.crearProyecto = async(req, res) => {
 
 exports.obtenerProyectos = async(req, res) => {
     try {
-        //console.log(req.usuario);
         const proyectos = await ProyectoModel.find({creador: req.usuario.id}).sort({creado: -1});
         res.json({proyectos}); 
     } catch (error) {
@@ -53,7 +51,6 @@ exports.actualizarProyecto = async(req, res) => {
     }
 
     try {
-        console.log(req.params.id);
         //obtener el id
         let proyecto = await ProyectoModel.findById(req.params.id);
 

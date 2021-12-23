@@ -42,7 +42,7 @@ exports.crearTarea = async(req, res) => {
 exports.obtenerTareas = async (req,res) => {
     try {
         //extraer el id de proyecto 
-        const {proyecto} = req.body;
+        const {proyecto} = req.query;//al enviar params desde front la consulta se lee con .query
 
         //buscar proyecto por id
         const existeProyecto = await proyectoModel.findById(proyecto)
@@ -58,7 +58,7 @@ exports.obtenerTareas = async (req,res) => {
         }
 
         //obtener tareas de proyectos
-        const tareas = await TareaModel.find({proyecto});
+        const tareas = await TareaModel.find({proyecto}).sort({'creado': -1});//.sort obtener tareas ordenadas por fecha de creacion
         res.status(200).json(tareas);
     } catch (error) {
         console.log(error);
@@ -67,14 +67,13 @@ exports.obtenerTareas = async (req,res) => {
 }
 
 exports.editarTarea = async(req,res) => {
-    try {
+    try {     
         //extraer el id de proyecto, nombre, estado
         const {proyecto, nombre, estado} = req.body;
-        //console.log(req.body);
 
         //buscar tarea por id
         let tarea = await TareaModel.findById(req.params.id);
-
+        
         //comprobar existencia de tarea
         if (!tarea) {
             return res.status(404).json({msg:'tarea no existe'});
@@ -92,8 +91,8 @@ exports.editarTarea = async(req,res) => {
         const tareaEditada = {};
 
         //determinar que esta editando
-        estado?tareaEditada.estado = estado:null;
-        nombre?tareaEditada.nombre = nombre:null;
+        tareaEditada.estado = estado;
+        tareaEditada.nombre = nombre;
         
 
         //guardar
@@ -109,8 +108,7 @@ exports.editarTarea = async(req,res) => {
 exports.eliminarTarea = async(req,res) => {
     try {
         //extraer el id de proyecto, nombre, estado
-        const {proyecto} = req.body;
-        console.log(req.body);
+        const {proyecto} = req.query;//al enviar params desde front la consulta se lee con .query
 
         //buscar tarea por id
         let tarea = await TareaModel.findById(req.params.id);
@@ -122,7 +120,7 @@ exports.eliminarTarea = async(req,res) => {
 
         //buscar proyecto por id
         const Proyecto = await proyectoModel.findById(proyecto)
-
+        
         //validar si proyecto es del usuario        
         if (Proyecto.creador.toString() !== req.usuario.id) {
             return res.status(401).json({msg:'no tiene autorizacion de edicion de la tarea en este proyecto'});

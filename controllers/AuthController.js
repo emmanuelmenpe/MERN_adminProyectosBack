@@ -7,7 +7,7 @@ const JWT = require('jsonwebtoken');
 exports.autenticarUsuario = async(req, res) => {
     //obtener errores de validacion si lo hay
     const errores = validationResult(req);
-
+    
     if (!errores.isEmpty()) {
         return res.status(400).json({errores:errores.array()});
     }
@@ -17,14 +17,18 @@ exports.autenticarUsuario = async(req, res) => {
     try {
         //buscar email
         let usuario = await UsuarioModel.findOne({email});
+        
         if (!usuario) {
+            console.log('usuario no eccontrado');
             return res.status(400).json({msg: 'el usuario no existe'});
         } 
         
         //comparar password
         const passwordCorrecto = await bcrytjs.compare(password, usuario.password);
         if (!passwordCorrecto) {
+            console.log('contraseña no correcto');
             return res.status(400).json({msg: 'contraseña incorrecta'});
+            
         }
 
         //crear  el json web token
